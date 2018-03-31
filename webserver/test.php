@@ -171,6 +171,9 @@ switch ($_POST['radio']) {
 	case 'graph': 	
 			switch($_POST['select']){
 				case 'weekly': //column chart
+					include ('column.php');	
+				break;
+				case 'monthly': //column chart
 					include ('pie.php');	
 				break;
 				case 'yearly': //pie chart

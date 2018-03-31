@@ -15,14 +15,19 @@ $con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeit
  function drawChart() {
 
  var data = google.visualization.arrayToDataTable([
-    ['DAY', 'COUNT'],
-    ['M', 3],
-    ['TU', 1],
-    ['W', 1],
-    ['TH', 1],
-    ['F', 3],
-    ['SAT', 2],
-    ['SUN', 1],
+    ['MONTH', 'COUNT'],
+    ['January', 45],
+    ['February', 47],
+    ['March', 31],
+    ['April', 67],
+    ['May', 29],
+    ['June', 33],
+    ['July', 37],
+    ['August', 49],
+    ['September', 70],
+    ['October', 81],
+    ['November', 58],
+    ['December', 45],
     
  <?php 
 /*
@@ -36,7 +41,7 @@ $con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeit
  ]);
 
  var options = {
-    title: 'NUMBER OF STUDENTS IN A WEEK',
+    title: '  NUMBER OF STUDENTS IN YEAR: 2018  ',
     pieHole: 0.4,
  };
 

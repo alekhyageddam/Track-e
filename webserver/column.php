@@ -15,6 +15,15 @@ $con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeit
  function drawChart() {
  var data = google.visualization.arrayToDataTable([
 
+    ['DAY', 'COUNT'],
+    ['M', 14],
+    ['TU', 20],
+    ['W', 12],
+    ['TH', 7],
+    ['F', 28],
+    ['SA', 31],
+    ['SUN', 30],
+
  <?php 
  /*
  $query = "SELECT count(ip) AS count, vdate FROM visitors GROUP BY vdate ORDER BY vdate";
@@ -27,7 +36,7 @@ $con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeit
  ]);
 
  var options = {
- title: 'Date wise visits'
+ title: 'NUMBER OF STUDENTS ENTERING THE REC CENTER THIS WEEK'
  };
  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart"));
  chart.draw(data, options);

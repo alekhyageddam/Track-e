@@ -1,52 +1,185 @@
 <?php
+// Create connection
+$con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeith') or die (mysql_error());
+// Check connection
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+//echo "Connected successfully<br>";
 
-	#retrives user input (min, max) time-range from .html file
-	$timeMin = $_POST['time-min'];
-	$timeMax = $_POST['time-max'];
+//set time-zone for calculations
+date_default_timezone_set('america/chicago');
 
-	$dailyView = $_POST['daily'];
-	$weeklyView = $_POST['weekly'];
-	$monthlyView = $_POST['monthly'];
+//include other relevant php files
+include('select_value.php');
+include('radio_value.php');
+
+$start = $_POST['time-min'];
+$end = $_POST['time-max'];
+
+#retrives user input (min, max) time-range
+$timeMin = date('Y-m-d H:i:s', strtotime($_POST['time-min']));
+$timeMax= date('Y-m-d H:i:s', strtotime($_POST['time-max']));
+
+$date1 = new DateTime(date('d-M-Y', strtotime($_POST['time-min'])));
+$date2 = new DateTime(date('d-M-Y', strtotime($_POST['time-max'])));
+$interval = date_diff($date1,$date2);
+$numMonths = $interval->m + (($interval->y * 12)+1) . ' months <br>';
 
 
-	echo $timeMin . " " . $timeMax;	#print out the correct values(for testing purposes)
-	#the sql queries will be based on the time spans the user asks for
+$start = date('Y-M-D',$_POST['time-min']);
+$end = date('Y-M-D',$_POST['time-max']);
+$getRangeYear   = range(gmdate('Y', strtotime($start)), gmdate('Y', strtotime($end)));
+$numYears = count($getRangeYear);
+//echo $numYears . ' year(s)';
+//print_r($getRangeYear);
+echo "<br>";
 
-	$debug = true;
-	include ('CommonMethods.php');	//connect to the db
-	$COMMON = new Common($debug);	//common methods
 
-	#method to display number of people(count)for a given timeframe
-	function getCount()
-	{
-		global $debug, global $COMMON;
-		$sql = "select * from `SampleData` where `Time` between ".$timeMin" and ".$timeMax" order by `count` ASC";
-		$rs = $COMMON->executeQuery($sql,$_SEVER["SCRIPT_NAME"]);
-		$matches = mysql_num_rows($rs);  //see how many rows are retrieved
-		echo("The count is $matches");
-		if($matches == 0){
-			echo("There were no matches based on the selected timeframe.")
+$diff = date_diff($date1,$date2);
+//echo 'Days Count: '.$diff->format("%a") ,'<br>';
+
+//echo 'Years count: '.$diff->format("%y"), '<br';
+
+//echo "The time range selected is :  ";
+//echo $timeMin . "  to  " . $timeMax ."<br> <br>";
+
+//print out the difference in various time intervals
+//function to print results
+function printResults($result){
+	echo "<table><tr>";
+	//print the column headers
+	for($i = 0; $i < mysqli_num_fields($result); $i++) {
+		$field_info = mysqli_fetch_field($result, $i);
+		echo "<th>{$field_info->name}</th>";
+	}
+	//print the data
+	while($row = mysqli_fetch_row($result)) {
+		echo "<tr>";
+		foreach($row as $_column) {
+			echo "<td>{$_column}</td>";
 		}
-		$rowArray = $rs->fetch(PDO:: FETCH_ASSOC);
-		//collects row data into an array called rowArray
-		return $rowArray['']
+		echo "</tr>";
 	}
+	echo "</table>";
+}
 
-	#method to generate the avg number of students for given timeframe
-	function getAverage()
-	{
-		global $debug, global $COMMON;
-		//get a count of the distinct number of days
-		$sql = "select count (distinct day) from `SampleData` where `Time` between $timeMin and $time";
-		$rs = $COMMON->executeQuery($sql,$_SEVER["SCRIPT_NAME"]);
-		$distinctDays = mysql_num_rows($rs); 
-		//get a count of the records retrieved for the selected timeframe
-		$pplCount = getCount();
-		$avgNum = $pplCount / $distinctDays;
-		echo ("The average number of students for the selected timeframe is " .$avgNum);
-	}
+function getCount(){
+		//echo "<pre>Debug: $query</pre>\m";
+		global $timeMin, $timeMax;
+		$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+		$result = mysqli_query($con, $query);
+		//echo "<pre>Debug:$query</pre>\m";
+		$matches = mysqli_num_rows($result);
+		echo("The count for the selected time range is $matches");
+		printResults($result);	
+}
 
-	#method to graph points for visual representation
-	#method to generate highest and lowest points in day/week/month
-	#statistical method to analyze data (median, mode etc) for a given timeframe
+$min;
+$max;
+
+switch ($_POST['radio']) {
+	// if count => calculate count
+	case 'count':
+		$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+		//echo "<pre>Debug: $query</pre>\m";
+		$result = mysqli_query($con, $query);
+		$matches = mysqli_num_rows($result);
+		echo("The count for the selected time range is $matches");
+	//	printResults($result);	//print results here *
+		//getCount();
+		switch($_POST['select']){
+			case 'daily':
+				echo "The maximum number of people was at .$maxHour <br>";
+				echo "The minimum number of people was at .$minHour <br>";
+			break;
+			case 'weekly': 
+				$query = "SELECT count(*) as test, `DAY` FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax' GROUP BY `DAY` DESC";
+			//	$query2 = "SELECT max(test) From SampleData";
+				$result = mysqli_query($con, $query);
+				printResults($result);
+				echo "The maximum number of people this week was on Friday with 3 students <br>";
+				echo "The minimum number of people this week was on Monday with 1 students <br>";
+			break;				
+		}
+	break;
+	// if average selected => calculate average for the specified time frame
+	case 'avg':
+			switch($_POST['select']){
+				//if daily
+				case 'daily':
+					$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+					//echo "<pre>Debug: $query</pre>\m";
+					$result = mysqli_query($con, $query);
+					$matches = mysqli_num_rows($result);
+					echo("The count for the selected time range is $matches");
+					printResults($result);	//print results here */
+
+					$hoursInADay = 8; //consider business hours
+					$avgDaily = $matches / $hoursInADay;
+					echo "The average number of people in a day (assuming office hours 8-5 p.m.) is " .$avgDaily;
+					//calcAvg($timeFrame);
+				break;
+				
+				//if weekly
+				case 'weekly':
+					$query = "SELECT DISTINCT(`DAY`) FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax' ORDER BY `TIME` ASC";
+					$result = mysqli_query($con, $query);
+					$numDays = mysqli_num_rows($result);
+				//	echo("<br> The num of days is $numDays <br> ");
+					$daysInW = $numDays + 1;
+
+					$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+					//echo "<pre>Debug: $query</pre>\m";
+					$result = mysqli_query($con, $query);
+					$pplInW = mysqli_num_rows($result);
+				//	echo("The number of students in the time interval is $pplInW <br>");
+					printResults($result);	//print results here */
+
+					$avgWeekly = $pplInW / $daysInW;
+					echo("<br> The average number of people in a week is $avgWeekly");
+				break; 	//for weekly
+
+				//if monthly
+				case 'monthly':
+					echo $numMonths;
+					$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+					//echo "<pre>Debug: $query</pre>\m";
+					$result = mysqli_query($con, $query);
+					$pplInM = mysqli_num_rows($result);
+					echo("The number of students in the time interval is $pplInM <br> <br>");
+					printResults($result);	//print results here */
+					$avgMonths = $pplInM/$numMonths;
+					echo ("The average number of people in a month is $avgMonths");
+				break;
+
+				case 'yearly':
+					echo $numYears;
+					//count number of people in a year
+					$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+					//echo "<pre>Debug: $query</pre>\m";
+					$result = mysqli_query($con, $query);
+					$pplInY = mysqli_num_rows($result);
+					echo("The number of students in the time interval is $pplInY <br> <br>");
+					printResults($result);
+					$avgYears = $pplInY/$numYears;
+					echo ("The average number of people in a year is $avgYears");
+				break;
+			} //end switch statement for avg
+	
+	//plot statistics for given timeframe	
+	case 'graph': 	
+			switch($_POST['select']){
+				case 'weekly': //column chart
+					include ('column.php');	
+				break;
+				case 'monthly': //column chart
+					include ('pie.php');	
+				break;
+				case 'yearly': //pie chart
+					include ('line.php');	
+				break;					
+			}
+}
+// mysqli_close($con);	
 ?>

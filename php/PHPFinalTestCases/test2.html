@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<!--
+Return value for timespan 2018-02-23 08:00:00 to 2018-02-27 23:00:00
+No additonal options selected
+-->
+<html>
+
+<h1>CSCE 315 Project 1 Database Interface</h1>
+<br>
+<br>
+<h2>Results</h2>
+
+<body>
+<table>
+<tr>
+<th>Count</th>
+<th>Timestamp</th>
+<th>Day</th>
+<th>Value</th>
+</tr>
+<tr>
+<td>1</td>
+<td>2018-02-23 10:20:15</td>
+<td>M</td>
+<td>560</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2018-02-23 17:09:48</td>
+<td>M</td>
+<td>540</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2018-02-23 17:09:56</td>
+<td>M</td>
+<td>600</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2018-02-24 13:13:09</td>
+<td>TU</td>
+<td>450</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2018-02-25 11:50:30</td>
+<td>W</td>
+<td>420</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2018-02-25 13:15:25</td>
+<td>W</td>
+<td>650</td>
+</tr>
+<tr>
+<td>7</td>
+<td>2018-02-27 13:12:22</td>
+<td>F</td>
+<td>750</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2018-02-27 13:15:25</td>
+<td>F</td>
+<td>650</td>
+</tr>
+<tr>
+<td>9</td>
+<td>2018-02-27 10:08:30</td>
+<td>F</td>
+<td>420</td>
+</tr>
+</table>
+<br>
+<div id="rValues"></div>
+<fieldset>
+<h2>Options</h2>
+<form action="test.php" method="POST">
+Timespan: <input type="datetime-local" name="time-min"></input> to <input type="datetime-local" name="time-max"></input>
+<br> <br>
+
+Select a measure to view: <br>
+<!-- Select Radio Buttons Starts Here --> 
+<input type="radio" name="radio" value="count"> Count<br> 
+<input type="radio" name="radio" value="avg"> Average<br> 
+<input type="radio" name="radio" value="graph"> Statistics<br> 
+
+<!-- Select Button Starts Here -->
+<br> 
+Calculate results with a 
+<select id = "select" name="select">
+<option value="daily">daily</option>
+<option value="weekly">weekly</option>
+<option value="monthly">monthly</option>
+<option value="yearly">yearly</option>
+</select>
+unit time frame 
+
+<br> <br>
+<input type="submit" name="submit" value="Submit" />
+</fieldset>
+</form>
+</body>
+
+
+</html>

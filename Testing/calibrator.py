@@ -1,19 +1,19 @@
 from pymata_aio.pymata3 import PyMata3
+import csv
+from itertools import zip_longest
+from datetime import datetime
+from datetime import date
+
+times = []
+values = []
 
 # ping callback function
 def cb_ping(data):
-    if(data[1]<= 70):
-        cb_ping.counter += 1
-    else:
-        cb_ping.counter = 0
-
-    if(cb_ping.counter > 3):
-        print("Traffic Detected")
-        cb_ping.counter = 0
+    dt  = datetime.now()
+    time = dt.strftime('%H:%M:%S:%f')
+    times.append(time)
+    values.append(data[1])
         
-
-
-
 
 # create a PyMata instance
 board = PyMata3(2)
@@ -23,8 +23,18 @@ board.sonar_config(12, 12, cb_ping)
 
 
 
-
-while True:
+i = 0;
+while (i<100):
     board.sleep(.1)
+    print(i)
+    i += 1
+
+d = [times, values]
+res = zip_longest(*d,  fillvalue='')
+with open('output.csv', 'w', encoding="ISO-8859-1", newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows(res)
+    f.close()
+
 
 board.shutdown()

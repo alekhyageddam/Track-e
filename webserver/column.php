@@ -1,5 +1,23 @@
 <?php
-$con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeith') or die (mysql_error());
+/*****************************************
+** File:    results.php
+** Project: CSCE 315 Project 1, Spring 2018
+** Author:  XXXXX
+** Date:    3/31/18
+** Section: 315-501
+** E-mail:  xxx@tamu.edu 
+** This file draws a column graph when the user selects 'Statistics' and 'weekly'.
+***********************************************/
+
+//phpMyAdmin credentials
+$server = 'database.cs.tamu.edu';
+$user = 'xxxxxx';
+$pwd = 'xxxxxx';
+$db = 'xxxxxx';
+
+//Establish a connection to the MySQL table.
+$con = mysqli_connect($server, $user, $pwd,$db) or die (mysql_error());
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -14,7 +32,6 @@ $con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeit
  google.setOnLoadCallback(drawChart);
  function drawChart() {
  var data = google.visualization.arrayToDataTable([
-
     ['DAY', 'COUNT'],
     ['M', 14],
     ['TU', 20],
@@ -23,7 +40,6 @@ $con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeit
     ['F', 28],
     ['SA', 31],
     ['SUN', 30],
-
  <?php 
  /*
  $query = "SELECT count(ip) AS count, vdate FROM visitors GROUP BY vdate ORDER BY vdate";
@@ -34,7 +50,6 @@ $con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeit
  */
  ?>
  ]);
-
  var options = {
  title: 'NUMBER OF STUDENTS ENTERING THE REC CENTER THIS WEEK'
  };

@@ -5,7 +5,7 @@ $con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeit
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
-//echo "Connected successfully<br>";
+echo "Connected successfully<br>";
 
 //set time-zone for calculations
 date_default_timezone_set('america/chicago');
@@ -74,10 +74,6 @@ function getCount(){
 		echo("The count for the selected time range is $matches");
 		printResults($result);	
 }
-
-$min;
-$max;
-
 switch ($_POST['radio']) {
 	// if count => calculate count
 	case 'count':
@@ -86,22 +82,7 @@ switch ($_POST['radio']) {
 		$result = mysqli_query($con, $query);
 		$matches = mysqli_num_rows($result);
 		echo("The count for the selected time range is $matches");
-	//	printResults($result);	//print results here *
-		//getCount();
-		switch($_POST['select']){
-			case 'daily':
-				echo "The maximum number of people was at .$maxHour <br>";
-				echo "The minimum number of people was at .$minHour <br>";
-			break;
-			case 'weekly': 
-				$query = "SELECT count(*) as test, `DAY` FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax' GROUP BY `DAY` DESC";
-			//	$query2 = "SELECT max(test) From SampleData";
-				$result = mysqli_query($con, $query);
-				printResults($result);
-				echo "The maximum number of people this week was on Friday with 3 students <br>";
-				echo "The minimum number of people this week was on Monday with 1 students <br>";
-			break;				
-		}
+		printResults($result);	//print results here *
 	break;
 	// if average selected => calculate average for the specified time frame
 	case 'avg':

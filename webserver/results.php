@@ -72,7 +72,7 @@ switch ($_POST['radio']) {
 	// if user selects count => calculate count for the selected time range
 	case 'count':
 		//get all the records between the user-defined time range
-		$query = "SELECT * FROM TABLE_NAME WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+		$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
 
 		//execute the query above
 		$result = mysqli_query($con, $query);	
@@ -93,7 +93,7 @@ switch ($_POST['radio']) {
 				//if 'Average' and 'daily' selected
 				case 'daily':
 					//get all the records between the user-defined time range
-					$query = "SELECT * FROM TABLE_NAME WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+					$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
 
 					//execute the query above
 					$result = mysqli_query($con, $query);
@@ -122,7 +122,7 @@ switch ($_POST['radio']) {
 				//if 'Average' and 'weekly' selected
 				case 'weekly':
 					//get the days of all records between the user-defined time range
-					$query = "SELECT DISTINCT(`DAY`) FROM TABLE_NAME WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax' ORDER BY `TIME` ASC";
+					$query = "SELECT DISTINCT(`DAY`) FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax' ORDER BY `TIME` ASC";
 
 					//execute the query above
 					$result = mysqli_query($con, $query);
@@ -134,7 +134,7 @@ switch ($_POST['radio']) {
 					$daysInW = $numDays + 1;
 
 					//get all the records between the user-defined time range
-					$query = "SELECT * FROM TABLE_NAME WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+					$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
 					
 					//execute the query above
 					$result = mysqli_query($con, $query);
@@ -156,7 +156,7 @@ switch ($_POST['radio']) {
 				//if 'Average' and 'monthly' selected
 				case 'monthly':
 					//get all the records between the user-defined time range
-					$query = "SELECT * FROM TABLE_NAME WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+					$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
 
 					//execute the query above
 					$result = mysqli_query($con, $query);
@@ -181,7 +181,7 @@ switch ($_POST['radio']) {
 					echo $numYears;
 					
 					//get all the records between the user-defined time range
-					$query = "SELECT * FROM TABLE_NAME WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
+					$query = "SELECT * FROM SampleData WHERE `TIME` BETWEEN '$timeMin' AND '$timeMax'"; 
 
 					//execute the query above
 					$result = mysqli_query($con, $query);

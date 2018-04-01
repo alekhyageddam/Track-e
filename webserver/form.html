@@ -1,119 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<h1>Track-e Interface</h1>
-<br>
-<h2>Results</h2>
-<body>
-<table>
-<tr>
-<th>Count</th>
-<th>Timestamp</th>
-<th>Day</th>
-<th>Value</th>
-</tr>
-<tr>
-<td>1</td>
-<td>2018-02-23 10:20:15</td>
-<td>M</td>
-<td>560</td>
-</tr>
-<tr>
-<td>2</td>
-<td>2018-02-23 17:09:48</td>
-<td>M</td>
-<td>540</td>
-</tr>
-<tr>
-<td>3</td>
-<td>2018-02-24 17:09:56</td>
-<td>TU</td>
-<td>600</td>
-</tr>
-<tr>
-<td>4</td>
-<td>2018-02-24 13:13:09</td>
-<td>TU</td>
-<td>450</td>
-</tr>
-<tr>
-<td>5</td>
-<td>2018-02-25 11:50:30</td>
-<td>W</td>
-<td>420</td>
-</tr>
-<tr>
-<td>6</td>
-<td>2018-02-25 13:15:25</td>
-<td>TH</td>
-<td>650</td>
-</tr>
-<tr>
-<td>7</td>
-<td>2018-02-27 13:12:22</td>
-<td>F</td>
-<td>750</td>
-</tr>
-<tr>
-<td>8</td>
-<td>2018-02-27 13:15:25</td>
-<td>F</td>
-<td>650</td>
-</tr>
-<tr>
-<td>9</td>
-<td>2018-02-27 10:08:30</td>
-<td>F</td>
-<td>420</td>
-</tr>
-<tr>
-<td>10</td>
-<td>2018-02-28 13:13:20</td>
-<td>SA</td>
-<td>550</td>
-</tr>
-<tr>
-<td>11</td>
-<td>2018-02-28 13:13:34</td>
-<td>SA</td>
-<td>800</td>
-</tr>
-<tr>
-<td>12</td>
-<td>2018-03-01 10:10:08</td>
-<td>SU</td>
-<td>550</td>
-</tr>
-</table>
-<br>
-<div id="rValues"></div>
-<fieldset>
-<h2>Options</h2>
-<form action="test.php" method="POST">
-Timespan: <input type="datetime-local" name="time-min"></input> to <input type="datetime-local" name="time-max"></input>
-<br> <br>
+    <title>Walking Counter Traffic</title>
+<!--
+-->
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">                <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="css/datepicker.css"/>
+    <link rel="stylesheet" href="css/tooplate-style.css">                                   <!-- Templatemo style -->
+</head>
 
-Select a measure to view: <br>
-<!-- Select Radio Buttons Starts Here --> 
-<input type="radio" name="radio" value="count"> Count<br> 
-<input type="radio" name="radio" value="avg"> Average<br> 
-<input type="radio" name="radio" value="graph"> Statistics<br> 
-
-<!-- Select Button Starts Here -->
-<br> 
-Calculate results with a 
-<select id = "select" name="select">
-<option value="daily">daily</option>
-<option value="weekly">weekly</option>
-<option value="monthly">monthly</option>
-<option value="yearly">yearly</option>
-</select>
-unit time frame 
-
-<br> <br>
-<input type="submit" name="submit" value="Submit" />
-</fieldset>
-</form>
+    <body>
+        <div class="tm-main-content" id="top">
+            <div class="tm-top-bar-bg"></div>
+            <div class="tm-top-bar" id="tm-top-bar">
+                <!-- Top Navbar -->
+                <div class="container">
+                    <div class="row">
+                        
+                        <nav class="navbar navbar-expand-lg narbar-light">
+                            <a class="navbar-brand mr-auto" href="#">
+                                <img src="img/logo.png" alt="Site logo">
+                                 Walking Counter Traffic
+                            </a>
+                            <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>                      
+                        </nav>            
+                    </div>
+                </div>
+            </div>
+            <div class="tm-section tm-bg-img" id="tm-section-1">
+                <div class="tm-bg-white ie-container-width-fix-2">
+                    <div class="container ie-h-align-center-fix">
+                        <div class="row">
+                            <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
+                                <form action="index.html" method="get" class="tm-search-form tm-section-pad-2">
+                                        <br>
+                                        <h2>Results</h2>
+                                        <body>
+                                        <table>
+                                        <tr>
+                                        <th>Count </th>
+                                        <th>Timestamp</th>
+                                        <th>Day</th>
+                                        <th>Value</th>
+                                        </tr>
+                                        <tr>
+                                        <td>1</td>
+                                        <td>2018-02-23 10:20:15</td>
+                                        <td>M</td>
+                                        <td>560</td>
+                                        </tr>
+                                        <tr>
+                                        <td>2</td>
+                                        <td>2018-02-23 17:09:48</td>
+                                        <td>M</td>
+                                        <td>540</td>
+                                        </tr>
+                                        <tr>
+                                        <td>3</td>
+                                        <td>2018-02-24 17:09:56</td>
+                                        <td>TU</td>
+                                        <td>600</td>
+                                        </tr>
+                                        <tr>
+                                        <td>4</td>
+                                        <td>2018-02-24 13:13:09</td>
+                                        <td>TU</td>
+                                        <td>450</td>
+                                        </tr>
+                                        <tr>
+                                        <td>5</td>
+                                        <td>2018-02-25 11:50:30</td>
+                                        <td>W</td>
+                                        <td>420</td>
+                                        </tr>
+                                        </table>
+                                        <br>
+                                        <div id="rValues"></div>
+                                        <fieldset>
+                                        <h2>Options</h2>
+                                        <form action="results.php" method="POST">
+                                        Timespan: <input type="datetime-local" name="time-min"></input> to <input type="datetime-local" name="time-max"></input>
+                                        <br> <br>
+                                        
+                                        Select a measure to view: <br>
+                                        <!-- Select Radio Buttons Starts Here --> 
+                                        <input type="radio" name="radio" value="count"> Count<br> 
+                                        <input type="radio" name="radio" value="avg"> Average<br> 
+                                        <input type="radio" name="radio" value="graph"> Statistics<br> 
+                                        
+                                        <!-- Select Button Starts Here -->
+                                        <br> 
+                                        Calculate results with a 
+                                        <select id = "select" name="select">
+                                        <option value="daily">daily</option>
+                                        <option value="weekly">weekly</option>
+                                        <option value="monthly">monthly</option>
+                                        <option value="yearly">yearly</option>
+                                        </select>
+                                        unit time frame 
+                                        
+                                        <br> <br>
+                                        <input type="submit" name="submit" value="Submit" />
+                                        </fieldset>
+                                        </form>
+                                        </body>
+                                        
+                                </form>
+                            </div>                        
+                        </div>      
+                    </div>
+                </div>                  
+            </div>
 </body>
-
 </html>
+

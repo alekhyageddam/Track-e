@@ -14,29 +14,29 @@ $con = mysqli_connect('database.cs.tamu.edu', 'mattkeith', 'Tracke123','mattkeit
  google.setOnLoadCallback(drawChart);
  function drawChart() {
  var data = google.visualization.arrayToDataTable([
-
-    ['DAY', 'COUNT'],
-    ['M', 14],
-    ['TU', 20],
-    ['W', 12],
-    ['TH', 7],
-    ['F', 28],
-    ['SA', 31],
-    ['SUN', 30],
-
+ ['DAY', 'COUNT'],
+ ['M', 3],
+ ['TU', 1],
+ ['W', 1],
+ ['TH', 1],
+ ['F', 3],
+ ['SAT', 2],
+ ['SUN', 1],
  <?php 
- /*
- $query = "SELECT count(ip) AS count, vdate FROM visitors GROUP BY vdate ORDER BY vdate";
- $exec = mysqli_query($con,$query);
- while($row = mysqli_fetch_array($exec)){
- echo "['".$row['vdate']."',".$row['count']."],";
- }
- */
+ //$query = "SELECT DISTINCT count(`COUNT`) AS count, `DAY` FROM SampleData GROUP BY `DAY` ORDER BY `DAY`";
+ //$exec = mysqli_query($con,$query);
+ //while($row = mysqli_fetch_array($exec)){
+ //echo "['".$row['`DAY`']."',".$row['count']."],";
+ //}
  ?>
  ]);
-
- var options = {
- title: 'NUMBER OF STUDENTS ENTERING THE REC CENTER THIS WEEK'
+ var options = { 
+    is3D: true,
+    title: 'NUMBER OF WALKING INTO REC CENTER THROUGHOUT THE WEEK',
+    hAxis: {title: "Days Of The Week"},
+    vAxis: {title: "Count of Students"},
+   // seriesType: "bars",
+   // series: {5: {type: "line"}}
  };
  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart"));
  chart.draw(data, options);

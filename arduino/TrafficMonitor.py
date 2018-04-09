@@ -19,7 +19,6 @@
 ***
 '''
 
-
 from pymata_aio.pymata3 import PyMata3 #For asynchronous sensor interfacing
 from pymata_aio.constants import Constants
 import MySQLdb                         #For database connection
@@ -34,11 +33,13 @@ USERNAME = "USERNAME_HERE"     #Username for database
 PASSWORD = "PASSWORD_HERE"     #Password for database
 
 
+
 #Hardware setup variables
 SAMPLE_RATE = 50     #Sample rate of ultrasonic sensor (between 33 and 127 ms)
 SENSOR_IO_PIN = 12   #Pin number of ultrasonsic sensor
 LED_PIN = 2          #Pin number of LED (optional)
 LED_ENABLED = False  #Sets whether the optional LED is being used
+
 
 #Debuging Variables
 #These values have been tested and have been determined to work optimally. Do not change
@@ -62,6 +63,7 @@ def dataHandler(data):
             blink()
         dataHandler.counter = 0
         
+
 #Initialize static Variables         
 dataHandler.counter = 0
 LEDQueued = False
@@ -86,6 +88,7 @@ def generateQuery(data, inputTime = None ):
     connection.commit()
     
 
+
 #Blink the optional LED (NOT CURRENTLY WORKING)
 def blink():
     """
@@ -95,7 +98,6 @@ def blink():
     interface.digital_write(LED_PIN, 0)
     LEDQueued = False
     """
-
 
 #Sets up database connection
 def dbSetup():

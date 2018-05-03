@@ -1,0 +1,77 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.15.10
+-- https://www.phpmyadmin.net
+--
+-- Host: database.cs.tamu.edu
+-- Generation Time: May 03, 2018 at 02:07 AM
+-- Server version: 5.5.56-MariaDB
+-- PHP Version: 5.4.16
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PeopleCounts`
+--
+
+CREATE TABLE IF NOT EXISTS `PeopleCounts` (
+  `id` int(10) unsigned NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `entering` enum('false','true') NOT NULL DEFAULT 'true',
+  `location` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `PeopleCounts`
+--
+
+INSERT INTO `PeopleCounts` (`id`, `time`, `entering`, `location`) VALUES
+(1, '2018-04-23 18:50:35', 'true', 'school\r\n'),
+(2, '2018-04-23 18:50:41', 'false', 'library'),
+(3, '2018-04-23 18:50:43', 'true', 'home\r\n'),
+(4, '2018-04-23 18:50:48', 'true', 'library'),
+(5, '2018-04-23 18:50:48', 'true', 'home'),
+(6, '2018-04-23 18:50:49', 'true', 'library'),
+(7, '2018-04-23 18:50:50', 'false', 'home'),
+(8, '2018-04-21 15:41:30', 'true', 'library'),
+(9, '2018-04-24 15:48:34', 'true', 'school\r\n'),
+(10, '2018-04-20 05:00:00', 'true', 'school\r\n'),
+(11, '2018-04-22 05:00:00', 'false', 'library'),
+(12, '2018-04-22 10:16:15', 'true', 'home'),
+(13, '2018-05-01 00:00:35', 'true', 'home'),
+(14, '2018-04-29 21:21:17', 'true', 'school'),
+(15, '2018-04-28 05:00:00', 'false', 'home');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `PeopleCounts`
+--
+ALTER TABLE `PeopleCounts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `PeopleCounts`
+--
+ALTER TABLE `PeopleCounts`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
